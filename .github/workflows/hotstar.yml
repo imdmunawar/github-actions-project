@@ -42,7 +42,7 @@ jobs:
 
       # 5. Build with Maven
       - name: Build with Maven
-        run: mvn clean package -DskipTests
+        run: mvn clean package sonar:sonar -DskipTests -U
 
       # 6. Upload WAR as artifact (optional, for later jobs)
       - name: Upload WAR artifact
