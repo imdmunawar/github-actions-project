@@ -42,7 +42,7 @@ jobs:
 
       # 5. Build with Maven
       - name: Build with Maven
-        run: mvn clean package sonar:sonar -DskipTests -U
+        run: mvn clean package -DskipTests 
 
       # 6. Upload WAR as artifact (optional, for later jobs)
       - name: Upload WAR artifact
@@ -62,14 +62,14 @@ jobs:
           export PATH=$HOME/sonar-scanner-cli/bin:$PATH
           sonar-scanner -v
       # 7. SonarQube analysis
-      - name: SonarQube Analysis
+      - name: SonarQube Analysis 
         env:
           SONAR_HOST: ${{ secrets.SONAR_HOST }}
           SONAR_LOGIN: ${{ secrets.SONAR_TOKEN }}
         run: |
           echo "SonarQube server URL: $SONAR_HOST"
           curl -I $SONAR_HOST
-          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -U \
             -Dsonar.projectKey=hotstar \
             -Dsonar.host.url=$SONAR_HOST \
             -Dsonar.login=$SONAR_LOGIN
